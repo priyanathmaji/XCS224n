@@ -23,6 +23,7 @@ def distinct_words(corpus):
     num_corpus_words = 0
 
     # ### START CODE HERE ###
+    
     # ### END CODE HERE ###
 
     return corpus_words, num_corpus_words
