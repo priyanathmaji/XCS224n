@@ -23,7 +23,15 @@ def distinct_words(corpus):
     num_corpus_words = 0
 
     # ### START CODE HERE ###
-    
+    for document in corpus:
+        print(document)
+        for word in document:
+            if word not in corpus_words:
+                corpus_words.append(word)
+                num_corpus_words = num_corpus_words + 1
+    corpus_words = sorted(corpus_words)
+    print(corpus_words)
+    print(num_corpus_words)
     # ### END CODE HERE ###
 
     return corpus_words, num_corpus_words
@@ -51,6 +59,26 @@ def compute_co_occurrence_matrix(corpus, window_size=4):
     word2Ind = {}
 
     # ### START CODE HERE ###
+    #print(window_size)
+    #print(corpus)
+    word2Ind = {words[i]:i for i in range(num_words)}
+    print(word2Ind)
+    M = np.zeros((num_words,num_words))
+
+    for document in corpus:
+        for idx, word in enumerate(document):
+            center_Index = word2Ind[word]
+            #get the words before the selected word
+            for context_index in range(max(0,idx - window_size), idx):
+                context_word = document[context_index]
+                context_index = word2Ind[context_word]
+                M[center_Index,context_index] += 1
+            
+            for context_index in range(idx + 1, min(idx + window_size+1, len(document))):
+                context_word = document[context_index]
+                context_index = word2Ind[context_word]
+                M[center_Index, context_index] += 1
+    
     # ### END CODE HERE ###
 
     return M, word2Ind
@@ -73,6 +101,9 @@ def reduce_to_k_dim(M, k=2):
     print("Running Truncated SVD over %i words..." % (M.shape[0]))
 
     # ### START CODE HERE ###
+    truncatedSVD = TruncatedSVD(n_components=k,n_iter=n_iter)
+    M_reduced = truncatedSVD.fit_transform(M)
+    print(M_reduced)
     # ### END CODE HERE ###
 
     print("Done.")
@@ -97,6 +128,8 @@ def main():
 
     #Read in the corpus
     reuters_corpus = read_corpus()
+    
+    #print("retuers_corpus", reuters_corpus[:100])
 
     M_co_occurrence, word2Ind_co_occurrence = compute_co_occurrence_matrix(reuters_corpus)
     M_reduced_co_occurrence = reduce_to_k_dim(M_co_occurrence, k=2)
@@ -105,7 +138,7 @@ def main():
     M_normalized = M_reduced_co_occurrence / M_lengths[:, np.newaxis] # broadcasting
 
     words = ['barrels', 'bpd', 'ecuador', 'energy', 'industry', 'kuwait', 'oil', 'output', 'petroleum', 'venezuela']
-    plot_embeddings(M_normalized, word2Ind_co_occurrence, words, 'co_occurrence_embeddings_(soln).png')
+    #plot_embeddings(M_normalized, word2Ind_co_occurrence, words, 'co_occurrence_embeddings_(soln).png')
 
 if __name__ == "__main__":
     main()
