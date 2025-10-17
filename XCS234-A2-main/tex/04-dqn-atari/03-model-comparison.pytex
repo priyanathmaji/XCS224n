@@ -1,0 +1,9 @@
+\item \points{4c}
+
+Given the results generated from training both DQN and a linear approximator on the Atari environment \texttt{Pong-v5} compare the performance of the DeepMind DQN architecture with the linear Q value approximator.
+In particular, what explains the observed performance gap between the two network architectures?
+
+🐍
+import re
+with open('submission.tex') as f: print((re.search(r'% <SCPD_SUBMISSION_TAG>_4c(.*?)% <SCPD_SUBMISSION_TAG>_4c', f.read(), re.DOTALL)).group(1))
+🐍

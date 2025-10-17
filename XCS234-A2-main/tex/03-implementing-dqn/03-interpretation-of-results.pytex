@@ -1,0 +1,11 @@
+\item \points{3c}
+
+Compare the performance of your linear and DQN implementations on the test environment. 
+
+\textbf{Note}: The comparison may not be perfectly fair in this case as both experiments use different configs. 
+This comparison should highlight the necessity of finding the right complexity of a model for a given problem.
+
+🐍
+import re
+with open('submission.tex') as f: print((re.search(r'% <SCPD_SUBMISSION_TAG>_3c(.*?)% <SCPD_SUBMISSION_TAG>_3c', f.read(), re.DOTALL)).group(1))
+🐍

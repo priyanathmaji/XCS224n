@@ -1,0 +1,8 @@
+\item \points{4d}
+
+Will the performance of DQN always improve monotonically over time? Explain why or why not.
+
+🐍
+import re
+with open('submission.tex') as f: print((re.search(r'% <SCPD_SUBMISSION_TAG>_4d(.*?)% <SCPD_SUBMISSION_TAG>_4d', f.read(), re.DOTALL)).group(1))
+🐍

@@ -1,0 +1,14 @@
+\item \points{4a}
+
+Now we're ready to train on the Atari \texttt{Pong} environment. First, launch linear approximation on pong by running the following command:
+\begin{lstlisting}
+$ python run.py --config_filename=q4_linear
+\end{lstlisting} 
+This will train the model for $500,000$ steps and should take approximately half an hour. Once training is complete observe the contents of ~results/q4_linear~ and in particular the plot ~scores.png~ (the Azure Guide contains details of moving files from the vm to your local machine). 
+
+Using this plot, describe the performance of your linear model on the \texttt{Pong-v5} environment. 
+
+🐍
+import re
+with open('submission.tex') as f: print((re.search(r'% <SCPD_SUBMISSION_TAG>_4a(.*?)% <SCPD_SUBMISSION_TAG>_4a', f.read(), re.DOTALL)).group(1))
+🐍
