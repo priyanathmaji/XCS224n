@@ -68,15 +68,27 @@ def naive_softmax_loss_and_gradient(center_word_vec,outside_word_idx,outside_vec
   
   ### START CODE HERE
   # Compute softmax probabilities
-  P = softmax(np.dot(outside_vectors, center_word_vec))  
-  loss = -np.log(P[outside_word_idx])
+  #print("shape outside_vectors", outside_vectors.shape)
+  #print("shape center_word_vec", center_word_vec.shape)
+  #print("outside_vectors", outside_vectors)
+  #print("center_word_vec", center_word_vec)
+  #print("outside_word_idx", outside_word_idx)
+
+  ### outside_vectors: (token_count, embedding_dim)
+  ### center_word_vec: (embedding_dim,)
+  ### y_hat: (token_count,)
+  y_hat = softmax(np.dot(outside_vectors, center_word_vec))  
+  ### loss: scalar
+  loss = -np.log(y_hat[outside_word_idx])
 
   # Gradient wrt center word vector (v_c)
-  print("P before", P)
-  P[outside_word_idx] = P[outside_word_idx] - 1
-  print("P after", P)
-  grad_center_vec = np.dot(P, outside_vectors)
-  grad_outside_vecs = np.outer(P, center_word_vec)
+  #print("y_hat before", y_hat)
+  #subtracting 1 from the probability of the outside work (idx=3 in case of 2a-1-basic)
+  ###y - y_hat = [.2 .4 .1 -1 .3] - [0 0 0 1 0]
+  y_hat[outside_word_idx] = y_hat[outside_word_idx] - 1
+  #print("y_hat after", y_hat)
+  grad_center_vec = np.dot(y_hat, outside_vectors)
+  grad_outside_vecs = np.outer(y_hat, center_word_vec)
   ### END CODE HERE
 
   return loss, grad_center_vec, grad_outside_vecs
